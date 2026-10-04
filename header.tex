@@ -1,0 +1,62 @@
+\documentclass[12pt, reqno]{amsart}
+\usepackage{amssymb,amsmath,mathabx, amscd}
+\usepackage[pdftex]{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz, tikz-cd}
+\usepackage[margin=.8in]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{mathrsfs, colonequals}
+\usepackage{fancyhdr}
+
+\newcommand{\nn}{\mathbb{N}}
+\newcommand{\cc}{\mathbb{C}}
+\newcommand{\ff}{\mathbb{F}}
+\newcommand{\qq}{\mathbb{Q}}
+\newcommand{\rr}{\mathbb{R}}
+\newcommand{\zz}{\mathbb{Z}}
+\newcommand{\bb}{\mathbb{B}}
+\newcommand{\pp}{\mathbb{P}}
+
+\newcommand{\B}{\mathcal{B}}
+\renewcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathcal{P}}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{ithm}{Theorem}
+\newtheorem{icor}[ithm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{claim}[thm]{Claim}
+
+\theoremstyle{definition}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{assumption}[thm]{Assumption}
+\newtheorem*{question}{Main Question}
+
+\theoremstyle{remark}
+\newtheorem{rmk}{Remark}[section]
+
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\nul}{\operatorname{null}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\Real}{\operatorname{Re}}
+\renewcommand{\implies}{\Longrightarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\defi}[1]{{\color{violet}\textsf{#1}}} 
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\interior}{\operatorname{Int}}
+\newcommand{\closure}{\operatorname{Cl}}
+
+\newcommand{\comment}[1]{\textcolor{magenta}{#1}}
+\def\multiset#1#2{\ensuremath{\left(\kern-.2em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.2em\right)}}
+\newenvironment{ans}
+{\color{teal}\par\noindent\textbf{Answer:}\noindent\begin{itshape}}
+{\end{itshape}\par}
+
