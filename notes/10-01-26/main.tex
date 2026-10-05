@@ -1,0 +1,52 @@
+\section{Arithmetic}
+
+\subsection{Topics}
+
+\begin{itemize}
+    \item Tropical semiring
+    \item Tropical polynomial
+    \item Newton polygon
+\end{itemize}
+
+\subsection{Definitions and results}
+
+\begin{defin}[Tropical semiring]
+    The \textit{min-plus tropical semiring} is
+    \[\{\rr \cup \{\infty\},\oplus,\odot\},\]
+    with tropical addition $a \oplus b = \min\{a,b\}$ and 
+    tropical multiplication $a \odot b = a+b$.
+\end{defin}
+
+\begin{rmk}
+    By the definition of a semiring, the following holds: 
+    \begin{itemize}
+        \item (Commutativity)
+        \[x\oplus y=y\oplus x \quad \text{and}\quad x\odot y=y\odot x.\]
+        \item (Distributive law)
+        \[x\odot(y\oplus z)=x\odot y\oplus x\odot z.\]
+        \item (Identity elements)
+        \[x\oplus \infty=x\quad \text{and}\quad x\odot 0=0.\]
+    \end{itemize}
+
+    Note that the existence of an additive inverse is not guaranteed. For example, $6\oplus x=7$ has no solution for $x$.
+\end{rmk}
+
+\begin{defin}
+    A \textit{tropical polynomial} is a finite linear combination of tropical monomials 
+    \[p(x_1,\dots,x_n)=a\odot x_1^{i_1}x_2^{i_2}\cdots x_n^{i_n}\oplus b\odot x_1^{j_1}x_2^{j_2}\cdots x_n\oplus \cdots\]
+    where the coefficients $a,b,\dots \in \rr$ and the exponents $i_1,j_1,\dots \in \zz$. 
+
+    A tropical polynomial $p$ can be regarded as a function $p:\rr^n \to \rr$ by
+    \[p(x_1,\dots,x_n)=\min(a+i_1x_1+\dots+i_nx_n,b+j_1x_1+\dots+j_nx_n,\dots)\]
+\end{defin}
+
+\begin{thm}
+    The tropical polynomials in $n$ variables $x_1,\dots,x_n$ are precisely the piecewise-linear concave functions on $\rr^n$ with integer coefficients.
+\end{thm}
+
+
+
+\subsection{Examples}
+
+
+\subsection{Exercises}
