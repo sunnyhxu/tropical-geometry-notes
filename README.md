@@ -1,28 +1,46 @@
 # Tropical geometry notes
 
-Each dated note is both an independently compilable document and a subfile of
-the complete notes. The root `main.tex` loads `header.tex`, builds the title and
-table of contents, and includes each dated note in chronological order.
+This project contains two collections:
 
-## Add a note
+- `drp/`: theoretical tropical geometry notes from the directed reading
+  program.
+- `auction/`: applications of tropical geometry to auction theory.
 
-1. Create a folder under `notes/` named using `MM-DD-YY`.
-2. Copy `notes/template.tex` into it and rename the copy to `main.tex`.
-3. Replace the section title and template content.
-4. Add `\subfile{notes/MM-DD-YY/main}` to the dated-notes block in the root
-   `main.tex`.
+## Add a dated note
 
-Keep each dated folder exactly one level below `notes/`. This makes the
-template's `../../main.tex` path point to the root document.
+1. Choose either `drp/` or `auction/`.
+2. Create a folder in that collection named using `MM-DD-YY`.
+3. Copy the collection's `template.tex` into the new folder as `main.tex`.
+4. Add `\subfile{COLLECTION/MM-DD-YY/main}` to the corresponding root file,
+   either `drp.tex` or `auction.tex`.
 
-## Build all notes
+For example, to add auction notes for October 8, 2026:
 
-From the repository root, run:
+```powershell
+New-Item -ItemType Directory auction/10-08-26
+Copy-Item auction/template.tex auction/10-08-26/main.tex
+```
+
+Then add this line to `auction.tex`:
+
+```tex
+\subfile{auction/10-08-26/main}
+```
+
+Keep dated folders exactly one level below their collection. This ensures that
+the template's `../../main.tex` path continues to point to the combined root
+document.
+
+## Build
+
+Run one of these commands from the repository root:
 
 ```console
 latexmk -pdf main.tex
+latexmk -pdf drp.tex
+latexmk -pdf auction.tex
 ```
 
-Alternatively, run `pdflatex main.tex` twice so the table of contents is
-updated.
+If `latexmk` is unavailable, run `pdflatex` twice on the desired entry point so
+its table of contents is updated.
 
