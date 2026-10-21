@@ -10,7 +10,7 @@ Our goal is to use geometry to visualize bidders' preferences.
 The following example illustrates how a bidder's demand changes
 across price space.
 
-\begin{example} \label{graph:sub-comp}
+\begin{example} \label{example:sunny-rainy}
     A hotel offers two rooms, labeled 1 and 2, at prices $p_1$ and $p_2$,
     respectively. Sunny wants at most one room. His utility at the possible
     bundles is
@@ -49,7 +49,7 @@ utility-maximizing bundle at $p$.
 
 \begin{example}
     We can visualize Sunny's and Rainy's demands in
-    Example~\ref{graph:sub-comp} on a single graph by superposing their demand
+    Example~\ref{example:sunny-rainy} on a single graph by superposing their demand
     complexes, as in Figure~\ref{fig:combined-demand}.
 
     \CombinedDemandFigure
@@ -88,15 +88,16 @@ to study existence and counting of competitive equilibria.
 \subsection{Locus of indifference prices}
 
 Let $J$ be the set of agents. For each $j \in J$, let
-$X^j \subseteq \zz^n$ be the set of bundles available to agent $j$. The
-agent's valuation is a function $V^j\colon X^j \to \rr$, and the corresponding
-quasilinear utility of bundle $x$ at prices $p\in\rr^n$ is
-$V^j(x)-p\cdot x$. Thus, agent $j$'s demand correspondence is
+$X^j \subseteq \zz^n$ be the set of bundles available to agent $j$. 
+The agent's valuation is a function $V^j\colon X^j \to \rr$, 
+and the corresponding quasi-linear utility of bundle $x$ 
+at price $p\in\rr^n$ is $V^j(x)-p\cdot x$. 
+Thus, agent $j$ demands bundles in
 \[
     D^j(p)=\argmax_{x \in X^j}\{V^j(x)-p\cdot x\}.
 \]
 
-For a fixed bundle $x$, the function $V^j(x)-p\cdot x$ is affine-linear in
+For a fixed bundle $x$, the function $V^j(x)-p\cdot x$ is affine-linear in 
 $p$. Consequently, price space is subdivided into regions according to which
 of these affine functions attain the maximum.
 
@@ -107,7 +108,9 @@ In this notation, competitive equilibrium can be defined as follows.
     a price vector $p$ and bundles $(x^j)_{j\in J}$ such that
     \[
         x^j \in D^j(p) \quad\text{for every } j \in J,
-        \qquad
+    \]
+    and
+    \[
         \sum_{j \in J}x^j=s.
     \]
 \end{defin}
@@ -119,21 +122,270 @@ In this notation, competitive equilibrium can be defined as follows.
         L^j = \{p \in \rr^n : |D^j(p)|>1\}.
     \]
 
-    The dark linear pieces in Figures~\ref{fig:sunny-demand}
-    and~\ref{fig:rainy-demand} are the corresponding loci of indifference
-    prices.
+    The linear pieces in Figures~\ref{fig:sunny-demand}
+    and~\ref{fig:rainy-demand} are the corresponding LIP prices.
+
+    We call an $(n-1)$-dimensional piece of the LIP a \textit{facet}, where the agent is indifferent between exactly two bundles.
 \end{defin}
 
-% facet, lower-dimensional intersections
+Suppose two distinct bundles $x,y$ are demanded at the same
+price $p$. Then
+\[
+    V^j(x)-p\cdot x=V^j(y)-p\cdot y,
+\]
+which implies
+\[
+    p\cdot(x-y)=V^j(x)-V^j(y).
+\]
 
-\subsection{Demand complex}
-\subsection{Facets and bundle differences}
-\subsection{Demand types}
+Thus, prices at which $x$ and $y$ are indifferent lie
+on a hyperplane orthogonal to $x-y$.
+
+In particular, an edge of the demand complex is
+perpendicular to its corresponding facet of the LIP.
+
+In fact, we can make the following definition to get the precise change across any facet.
+
+\begin{defin}
+    Let $F$ be a facet of the LIP, separating two
+    regions with unique demanded bundles $x$ and $y$.
+
+    We can write
+    \[
+        x-y = w(F)v_F,
+    \]
+    where $v_F\in\zz^n$ is a primitive integer 
+    (coordinates have greatest common divisor 1)
+    normal vector to $F$, and $w(F)\in\zz$.
+
+    We call $w(F)$ the \textbf{weight} of $F$.
+\end{defin}
+
+Intuitively, the weight measures how many units of
+demand change across a facet, in its primitive direction.
+
+\begin{defin}
+    Let $(\Pi,w)$ be an $(n-1)$-dimensional weighted
+    rational polyhedral complex in $\rr^n$.
+
+    For every codimension-two cell $G$, let
+    $F_1,\dots,F_k$ be the facets containing $G$.
+    Choose primitive integer normal vectors $v_i$
+    to $F_i$, consistently oriented around $G$.
+
+    The complex is \textbf{balanced} if
+    \[
+        \sum_{i=1}^k w(F_i)v_i=0
+    \]
+    at every such cell $G$.
+
+    Intuitively, suppose one starts from a point (not on the LIP) and travels around in a loop. Whenever the loop meets a facet, the demanded bundle changes according to the weight. When one returns back to the original point, the demanded bundle should not change, i.e., the cumulative net change is zero.
+\end{defin}
+
+% TODO: a figure of traveling around a loop
+
+\begin{thm}[Balancing criteria]
+    Let $(\Pi,w)$ be a pure $(n-1)$-dimensional
+    positively weighted rational polyhedral complex
+    in $\rr^n$, with positive integer weights.
+
+    Then $(\Pi,w)$ is the weighted LIP of some
+    valuation on a finite subset of $\zz^n$
+    if and only if $(\Pi,w)$ is balanced.
+\end{thm}
+
+\subsection{Demand Complex}
+
+The LIP describes an agent's preferences in \textbf{price space}.
+We now construct a dual object in \textbf{quantity space}, whose
+coordinates represent bundles of goods.
+
+\begin{defin}
+    Let $j$ be an agent with demand correspondence $D_j(p)$.
+    The \textbf{demand complex} of agent $j$ is
+    \[
+        \Sigma_j=\left\{\operatorname{conv}(D_j(p)):p\in\rr^n\right\}.
+    \]
+    
+    Its cells are the convex hulls of bundles demanded 
+    together at some price.
+\end{defin}
+
+The demand complex is a polyhedral complex. Its vertices
+are $0$-dimensional cells, its edges are $1$-dimensional cells,
+and more generally its $k$-cells have dimension $k$.
+
+Intuitively, the demand complex records which bundles can be
+simultaneously optimal, without recording the prices at which
+this happens.
+
+\begin{example}
+    Recall Sunny and Rainy from Example~\ref{example:sunny-rainy}.
+
+    Sunny may demand $(0,0)$, $(1,0)$, or $(0,1)$.
+    At $p=(30,40)$, all three bundles are equally optimal.
+    Therefore, his demand complex contains the triangle
+    \[
+        \operatorname{conv}\{(0,0),(1,0),(0,1)\},
+    \]
+    together with all its faces.
+
+    Rainy may demand only $(0,0)$ or $(1,1)$.
+    At prices satisfying $p_1+p_2=50$, both are optimal.
+    Her demand complex is the line segment
+    \[
+        \operatorname{conv}\{(0,0),(1,1)\},
+    \]
+    together with its endpoints.
+
+    % Figure: Sunny's triangular demand complex
+    % and Rainy's diagonal line segment.
+\end{example}
+
+\subsection{Duality Between LIP and Demand Complex}
+
+The LIP and demand complex encode the same geometric
+structure from two different perspectives.
+
+\begin{thm}
+    For a valuation on finitely many bundles, there is a
+    correspondence between the cells of its demand complex 
+    and its price complex:
+    \begin{itemize}
+        \item Vertices of the demand complex correspond to
+        closures of regions of unique demand.
+        \item Edges of the demand complex correspond to
+        facets of the LIP.
+        \item More generally, a $k$-dimensional demand cell
+        corresponds to an $(n-k)$-dimensional price cell.
+    \end{itemize}
+    
+    Corresponding cells are orthogonal, and inclusion
+    relations are reversed.
+\end{thm}
+
+\begin{example}
+    Consider Sunny's demand complex.
+
+    Its three vertices correspond to the three regions of
+    unique demand in price space.
+
+    Its three edges correspond to the three facets of his LIP.
+    For example, the edge joining $(1,0)$ and $(0,1)$ has
+    direction $(1,-1)$, perpendicular to the indifference
+    line
+    \[
+        p_2-p_1=10.
+    \]
+
+    Finally, the triangular $2$-cell corresponds to the
+    price $p=(30,40)$, where all three bundles are demanded.
+
+    % Figure: LIP and demand complex side by side,
+    % highlighting the corresponding cells.
+\end{example}
+
+\begin{rmk}
+    The additive inverse of the actual utility function
+    \[
+        -U_j(p)=-\max_{x\in X^j}\{V^j(x)-p\cdot x\}=\min_{x \in X^j}\{p\cdot x+(-V^j(x))\}
+    \]
+    is precisely a tropical polynomial (in the min-plus convention),
+    and its tropical hypersurface is precisely the LIP. In particular,
+    \[
+        -U_j(p)=\bigoplus_{x \in X^j}(-V^j(x))x^p
+    \]
+    in tropical arithmetic. 
+    
+    The demand complex is the corresponding regular subdivision
+    of the convex hull of the bundles, analogous to the
+    subdivision of a Newton polytope of a tropical polynomial.
+\end{rmk}
+
+
+
+\subsection{Demand Types}
+
+The duality above shows that the directions of edges in
+the demand complex determine the normal directions of
+facets in the LIP.
+
+These directions describe how an agent's demanded bundle
+can change when prices change.
+
+\begin{defin}
+    Let $\mathcal D\subseteq\zz^n$ be a set of nonzero
+    primitive integer vectors, closed under negation.
+
+    A valuation is of \textit{demand type} $\mathcal D$
+    if every facet of its LIP has a normal vector
+    belonging to $\mathcal D$.
+\end{defin}
+
+Equivalently, every edge of its demand complex is parallel
+to some vector in $\mathcal D$.
+
+Note that a valuation may belong to multiple demand types.
+The smallest such set, consisting of all primitive facet
+normal directions and their negatives, is its
+\textit{minimal demand type}.
+
+\begin{example}
+    Recall our two agents.
+
+    Sunny's demand complex is a triangle, with edge
+    directions
+    \[
+        (1,0),\quad (0,1),\quad (1,-1).
+    \]
+    Hence his minimal demand type is
+    \[
+        \mathcal D_S=\pm\{(1,0),(0,1),(1,-1)\}.
+    \]
+
+    The direction $(1,-1)$ represents substituting one
+    room for the other.
+
+    Rainy's demand complex is a line segment with
+    direction $(1,1)$. Her minimal demand type is
+    \[
+        \mathcal D_R=\pm\{(1,1)\}.
+    \]
+
+    This direction represents acquiring or giving up
+    both rooms together.
+\end{example}
+
+Demand types provide a geometric classification of
+preferences: we retain the possible directions of demand
+changes, rather than the exact valuations or prices.
+
+Two particularly important classes are:
+
+\begin{itemize}
+    \item \textbf{Ordinary substitutes:} primitive directions
+    with at most one positive and at most one negative
+    coordinate.
+    \item \textbf{Strong substitutes:} directions of the form
+    $\pm e_i$ or $e_i-e_j$, where $e_i$ denotes the
+    $i$-th standard basis vector.
+\end{itemize}
+
+\begin{rmk}
+    The strong-substitutes demand type is a subset of the
+    ordinary-substitutes demand type. They coincide when
+    each good has at most one available unit.
+    
+    The usefulness of demand types becomes apparent when
+    we combine multiple agents. In particular, certain
+    collections of demand directions guarantee the existence
+    of competitive equilibrium. 
+\end{rmk}
+
 
 \section{Aggregating Agents}
 
 \subsection{Aggregate demand}
-\subsection{Minkowski sums}
 \subsection{Competitive equilibrium as market clearing}
 \subsection{Holes and discrete convexity}
 
