@@ -43,9 +43,9 @@ across price space.
     Note that the two rooms are complements for Rainy.
 \end{example}
 
-We say that a \textit{competitive equilibrium} exists at a price vector $p$ if
+We say that a \textit{competitive equilibrium} exists at a price vector $\mathbf{p}$ if
 the entire supply can be allocated so that every agent receives a
-utility-maximizing bundle at $p$.
+utility-maximizing bundle at $\mathbf{p}$.
 
 \begin{example}
     We can visualize Sunny's and Rainy's demands in
@@ -90,28 +90,28 @@ to study existence and counting of competitive equilibria.
 Let $J$ be the set of agents. For each $j \in J$, let
 $X^j \subseteq \zz^n$ be the set of bundles available to agent $j$. 
 The agent's valuation is a function $V^j\colon X^j \to \rr$, 
-and the corresponding quasi-linear utility of bundle $x$ 
-at price $p\in\rr^n$ is $V^j(x)-p\cdot x$. 
+and the corresponding quasi-linear utility of bundle $\mathbf{x}$ 
+at price $\mathbf{p}\in\rr^n$ is $V^j(\mathbf{x})-\mathbf{p}\cdot \mathbf{x}$. 
 Thus, agent $j$ demands bundles in
 \[
-    D^j(p)=\argmax_{x \in X^j}\{V^j(x)-p\cdot x\}.
+    D^j(\mathbf{p})=\argmax_{\mathbf{x} \in X^j}\{V^j(\mathbf{x})-\mathbf{p}\cdot \mathbf{x}\}.
 \]
 
-For a fixed bundle $x$, the function $V^j(x)-p\cdot x$ is affine-linear in 
-$p$. Consequently, price space is subdivided into regions according to which
+For a fixed bundle $\mathbf{x}$, the function $V^j(\mathbf{x})-\mathbf{p}\cdot \mathbf{x}$ is affine-linear in 
+$\mathbf{p}$. Consequently, price space is subdivided into regions according to which
 of these affine functions attain the maximum.
 
 In this notation, competitive equilibrium can be defined as follows.
 
 \begin{defin}
     Given a supply vector $s$, a \textit{competitive equilibrium} consists of
-    a price vector $p$ and bundles $(x^j)_{j\in J}$ such that
+    a price vector $\mathbf{p}$ and bundles $(\mathbf{x}^j)_{j\in J}$ such that
     \[
-        x^j \in D^j(p) \quad\text{for every } j \in J,
+        \mathbf{x}^j \in D^j(\mathbf{p}) \quad\text{for every } j \in J,
     \]
     and
     \[
-        \sum_{j \in J}x^j=s.
+        \sum_{j \in J}\mathbf{x}^j=s.
     \]
 \end{defin}
 
@@ -119,7 +119,7 @@ In this notation, competitive equilibrium can be defined as follows.
     The \textit{locus of indifference prices} (LIP) for agent $j$ is the set
     of prices at which the agent demands more than one bundle:
     \[
-        L^j = \{p \in \rr^n : |D^j(p)|>1\}.
+        L^j = \{\mathbf{p} \in \rr^n : |D^j(\mathbf{p})|>1\}.
     \]
 
     The linear pieces in Figures~\ref{fig:sunny-demand}
@@ -128,18 +128,18 @@ In this notation, competitive equilibrium can be defined as follows.
     We call an $(n-1)$-dimensional piece of the LIP a \textit{facet}, where the agent is indifferent between exactly two bundles.
 \end{defin}
 
-Suppose two distinct bundles $x,y$ are demanded at the same
-price $p$. Then
+Suppose two distinct bundles $\mathbf{x},\mathbf{y}$ are demanded at the same
+price $\mathbf{p}$. Then
 \[
-    V^j(x)-p\cdot x=V^j(y)-p\cdot y,
+    V^j(\mathbf{x})-\mathbf{p}\cdot \mathbf{x}=V^j(\mathbf{y})-\mathbf{p}\cdot \mathbf{y},
 \]
 which implies
 \[
-    p\cdot(x-y)=V^j(x)-V^j(y).
+    \mathbf{p}\cdot(\mathbf{x}-\mathbf{y})=V^j(\mathbf{x})-V^j(\mathbf{y}).
 \]
 
-Thus, prices at which $x$ and $y$ are indifferent lie
-on a hyperplane orthogonal to $x-y$.
+Thus, prices at which $\mathbf{x}$ and $\mathbf{y}$ are indifferent lie
+on a hyperplane orthogonal to $\mathbf{x}-\mathbf{y}$.
 
 In particular, an edge of the demand complex is
 perpendicular to its corresponding facet of the LIP.
@@ -148,11 +148,11 @@ In fact, we can make the following definition to get the precise change across a
 
 \begin{defin}
     Let $F$ be a facet of the LIP, separating two
-    regions with unique demanded bundles $x$ and $y$.
+    regions with unique demanded bundles $\mathbf{x}$ and $\mathbf{y}$.
 
     We can write
     \[
-        x-y = w(F)v_F,
+        \mathbf{x}-\mathbf{y} = w(F)v_F,
     \]
     where $v_F\in\zz^n$ is a primitive integer 
     (coordinates have greatest common divisor 1)
@@ -201,10 +201,10 @@ We now construct a dual object in \textbf{quantity space}, whose
 coordinates represent bundles of goods.
 
 \begin{defin}
-    Let $j$ be an agent with demand correspondence $D_j(p)$.
+    Let $j$ be an agent with demand correspondence $D_j(\mathbf{p})$.
     The \textbf{demand complex} of agent $j$ is
     \[
-        \Sigma_j=\left\{\operatorname{conv}(D_j(p)):p\in\rr^n\right\}.
+        \Sigma_j=\left\{\operatorname{conv}(D_j(\mathbf{p})):\mathbf{p}\in\rr^n\right\}.
     \]
     
     Its cells are the convex hulls of bundles demanded 
@@ -223,7 +223,7 @@ this happens.
     Recall Sunny and Rainy from Example~\ref{example:sunny-rainy}.
 
     Sunny may demand $(0,0)$, $(1,0)$, or $(0,1)$.
-    At $p=(30,40)$, all three bundles are equally optimal.
+    At $\mathbf{p}=(30,40)$, all three bundles are equally optimal.
     Therefore, his demand complex contains the triangle
     \[
         \operatorname{conv}\{(0,0),(1,0),(0,1)\},
@@ -279,7 +279,7 @@ structure from two different perspectives.
     \]
 
     Finally, the triangular $2$-cell corresponds to the
-    price $p=(30,40)$, where all three bundles are demanded.
+    price $\mathbf{p}=(30,40)$, where all three bundles are demanded.
 
     % Figure: LIP and demand complex side by side,
     % highlighting the corresponding cells.
@@ -288,12 +288,12 @@ structure from two different perspectives.
 \begin{rmk}
     The additive inverse of the actual utility function
     \[
-        -U_j(p)=-\max_{x\in X^j}\{V^j(x)-p\cdot x\}=\min_{x \in X^j}\{p\cdot x+(-V^j(x))\}
+        -U_j(\mathbf{p})=-\max_{\mathbf{x}\in X^j}\{V^j(\mathbf{x})-\mathbf{p}\cdot \mathbf{x}\}=\min_{\mathbf{x} \in X^j}\{\mathbf{p}\cdot \mathbf{x}+(-V^j(\mathbf{x}))\}
     \]
     is precisely a tropical polynomial (in the min-plus convention),
     and its tropical hypersurface is precisely the LIP. In particular,
     \[
-        -U_j(p)=\bigoplus_{x \in X^j}(-V^j(x))x^p
+        -U_j(\mathbf{p})=\bigoplus_{\mathbf{x} \in X^j}(-V^j(\mathbf{x}))\mathbf{x}^{\mathbf{p}}
     \]
     in tropical arithmetic. 
     
