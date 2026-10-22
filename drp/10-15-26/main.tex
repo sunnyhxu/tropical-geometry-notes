@@ -4,18 +4,138 @@
 
 \section{Tropical Hypersurfaces and Newton Polytopes}
 
-\subsection{Topics}
-
-\begin{itemize}
-    
-\end{itemize}
-
 \subsection{Tropical Hypersurfaces}
+
+A tropical polynomial in $n$ variables can be written as
+\[f(\xx)=\bigoplus_{\ii \in S}a_{\ii}\odot \xx^\ii\]
+where $S\subseteq \zz_{\ge 0}^n$ is finite, $a_i\in \rr$, and 
+\[\xx^{\ii}=x_1^{i_1}\odot x_2^{i_2}\odot\cdots \odot x_n^{i_n}.\]
+As an ordinary function $f:\rr^n \to \rr$,
+\[f(\xx)=\min_{\ii \in S}(a_\ii+\langle \ii,\xx\rangle ).\]
+
+\begin{defin}
+    The tropical hypersurface $V(f)$ is the set of points at which the minimum defining $f$ is attained by at least two distinct monomials. Specifically,
+    \[V(f)=\{\xx \in \rr^n:|\argmin_{\ii \in S}(c_\ii+\langle \ii,\xx\rangle )\ge 2\}.\]
+
+    Equivalently, $V(f)$ is the locus where $f$ is not locally linear. 
+
+    For $n=2$, $V(f)$ is a tropical curve. In general, a tropical hypersurface is a polyhedral complex of dimension $n-1$.
+\end{defin}
+
+\begin{example}
+    % a two-dimensional example
+\end{example}
+
+Suppose two polynomials
+\[f_1(\xx)=\langle \ii_1,\xx\rangle+a_1,\qquad f_2(\xx)=\langle \ii_2,\xx\rangle +a_2\]
+attain the minimum simultaneously. The two equations imply
+\[\langle\ii_1-\ii_2,\xx\rangle=a_2-a_1.\]
+This defines a hyperplane whose normal vector is $\ii_1-\ii_2$. Therefore, any codimension-one cell on which precisely these two monomials attain the minimum lies in a hyperplane perpendicular to this vector joining their exponent vectors.
+
+The geometry of the tropical hypersurface is controlled by differences between the exponent vectors of its monomials. 
+
+We can make this correspondence precise using Newton polytopes.
 
 \subsection{Newton Polytopes and Regular Subdivisions}
 
+\begin{defin}
+    The \textit{Newton polytope} of $f$ is
+    \[\Delta_f=\conv (S)\subseteq \rr^n.\]
+
+    It is the convex hull of the exponent vectors of the monomials in $f$.
+\end{defin}
+
+Note that $\Delta_f$ only depends on the exponents, while $V(f)$ depends on both the exponents and the coefficients. To incorporate the coefficients, we lift each exponent vector into one higher dimension.
+
+\begin{defin}
+    Define the lifted point configuration
+    \[\tilde S=\{(\ii,a_\ii):\ii \in S\}\subseteq \rr^{n+1}.\]
+
+    Denote its upper convex hull as
+    \[\tilde{\Delta}_f=\conv (\tilde S).\]
+\end{defin}
+
+\begin{defin}
+    The \textit{regular subdivision} $P_f$ of $\Delta_f$ is obtained by projecting the bottom faces of $\tilde{\Delta}_f$ onto $\rr^n$. 
+
+    These projected faces from a polyhedral subdivision of $\Delta_f$. 
+\end{defin}
+
+\begin{rmk}
+    We use the bottom faces because tropical addition is defined using minimum, and vertices on the bottom faces correspond to monomials that can attain their minimum for some $\xx$. Any interior point of $\tilde{\Delta}(f)$, on the other hand, will never attain its minimum, hence removing them will not change the polynomial output.
+
+    We can consider hyperplanes of different slopes approaching $\tilde{\Delta}(f)$ from below, and their first intersections with $\tilde{\Delta}(f)$ exactly correspond to the monomials attaining their minimum. An intersection need not be a point, in which case multiple monomials attain their minimum at the same time.
+\end{rmk}
+
 \subsection{Duality}
 
-\subsection{Examples}
+The tropical polynomial $f$ partitions $\rr^n$ into polyhedral regions according to which monomials attain the minimum. Let $Q_f$ denote the corresponding polyhedral complex, including its faces. Its codimension-one skeleton is the tropical hypersurface $V(f)$.
+
+\begin{thm}
+    Let $f$ be a tropical polynomial in $n$ variables, and assume its Newton polytope $\Delta_f$ has dimension $n$. 
+
+    There is an inclusion-reversing correspondence between the cells of the regular subdivision $P_f$ and the cells of $Q_f$ in the following way:
+
+    If
+    \[\tau \in P_f \quad \longleftrightarrow \quad \check\tau \in Q_f,\]
+    then
+    \[\dim \tau + \dim \check\tau = n.\]
+
+    Also,
+    \begin{itemize}
+        \item The corresponding $\tau$ and $\check\tau$ are orthogonal;
+        \item the exponent vectors correspondint to monomials attaining the minimum on the interior of $\check\tau$ have convex hull $\tau$.
+    \end{itemize}
+
+    For $n=2$, 
+    \[\text{vertex} \longleftrightarrow \text{region},\quad \text{edge}\longleftrightarrow \text{edge},\quad \text{polygon}\longleftrightarrow\text{vertex}.\]
+
+    In particular, an edge of a tropical curve is perpendicular to its dual edge in the Newton subdivision.
+\end{thm}
+
+We will work out the correspondence fully in $n=2$ case, and the same approach generalizes to higher dimensions.
+
+\begin{prop}
+    Let $f$ be a tropical polynomial in $2$ variables, and assume its Newton polytope $\Delta_f$ has dimension $2$.
+
+    Let $\varphi(i_1,i_2)$ denote the minimum (equivalently, tropical sum) of coefficients of all monomials with exponents $(i_1,i_2)$.
+    
+    There is a bijection between subdivisions $P_f$ of $\Delta_f$ and $Q_f$ of $\rr^2$ by $\tau \mapsto \check\tau$ where 
+    \[
+    \check\tau = \left\{(m_1,m_2) \in \rr^2 \Biggm|
+    \begin{aligned}
+        \exists a \in \rr \text{ s.t. } 
+        \forall (t_1,t_2) \in \tau,~-m_1t_1-m_2t_2+a & =\varphi(t_1,t_2), \\
+        \forall (i_1,i_2) \in \Delta_f,~-m_1t_1-m_2t+a &\le \varphi(i_1,i_2).
+    \end{aligned}
+    \right\}
+    \]
+\end{prop}
+
+\begin{proof}[Proof sketch.]
+    We interpret the equations for $P_f$ and $Q_f$ respectively.
+
+    We first consider the case where $\tau=(t_1,t_2)$ is a point, then $\check\tau$ is $2$-dimensional.
+    
+    For $P_f$, $-\mathbf m$ is the gradient of a plane which goes through $(t_1,t_2,\varphi(t_1,t_2))$ and below $\tilde\Delta f.$ 
+
+    For $Q_f$, the equations can be rewritten as
+    \[m_1t_1+m_2t_2+\varphi(t_1,t_2)=a\]
+    and
+    \[a \le m_1i_1+m_2i_2+\varphi(i_1,i_2).\]
+    Since $(i_1,i_2) \in S$ and $\varphi(i_1,i_2)$ is the coefficient for a monomial,
+    \[m_1i_1+m_2i_2+\varphi(i_1,i_2)=a_{(i_1,i_2)}\otimes x_1^{i_1}\otimes x_2^{i_2}=a_\ii \xx^\ii\]
+    in tropical arithmetic.
+
+    Hence, $\check\tau$ is the domain of linearity where $a_\tau\xx^\tau$ attains minimum. 
+
+    Then, suppose $\tau$ is an edge between $\tau_1$ and $\tau_2$. Then,
+    \[\tau=\text{edge between } \tau_1\text{ and }\tau_2 \quad \longleftrightarrow \quad \check \tau_1\cap \check\tau_2.\]
+
+    We can also see the correspondence clearly: a plane that goes through both $(\tau_1,\varphi(\tau_1))$ and $(\tau_2,\varphi(\tau_2))$ represents both monomials of $\tau_1$ and $\tau_2$ attains their minimum. 
+
+    For higher dimensions, we can reason by induction.
+\end{proof}
+
 
 \end{document}
