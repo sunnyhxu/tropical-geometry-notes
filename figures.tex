@@ -150,7 +150,8 @@
 % (x \oplus 0)(y \oplus 0)(xy \oplus 0), together with its two
 % Minkowski-sum decompositions from the final example in the DRP notes.
 \newcommand{\NewtonPolygonShape}{%
-    \filldraw[fill=black!6,draw=black,thick,line join=round]
+    \filldraw[fill=tropicalLift!20,draw=tropicalLift!85!black,
+        thick,line join=round]
         (0,0) -- (1,0) -- (2,1) -- (2,2) -- (1,2) -- (0,1) -- cycle;
 }
 
@@ -181,13 +182,13 @@
             \NewtonPolygonShape
 
             % The two triangular Newton polygons in the first decomposition.
-            \fill[newtonFactor!16]
+            \fill[tropicalCurve!16]
                 (0,0) -- (1,0) -- (1,1) -- cycle;
-            \fill[newtonFactor!16]
+            \fill[tropicalCurve!16]
                 (0,0) -- (0,1) -- (1,1) -- cycle;
-            \draw[newtonFactor,very thick,line join=round]
+            \draw[tropicalCurve,very thick,line join=round]
                 (0,0) -- (1,0) -- (1,1) -- cycle;
-            \draw[newtonFactor,very thick,line join=round]
+            \draw[tropicalCurve,very thick,line join=round]
                 (0,0) -- (0,1) -- (1,1) -- cycle;
 
             \NewtonPolygonAxesAndPoints
@@ -199,11 +200,11 @@
             \NewtonPolygonShape
 
             % The three segment Newton polygons in the second decomposition.
-            \draw[newtonFactor,very thick,line cap=round]
+            \draw[tropicalCurve,very thick,line cap=round]
                 (0,0) -- (1,0);
-            \draw[newtonFactor,very thick,line cap=round]
+            \draw[tropicalCurve,very thick,line cap=round]
                 (0,0) -- (0,1);
-            \draw[newtonFactor,very thick,line cap=round]
+            \draw[tropicalCurve,very thick,line cap=round]
                 (0,0) -- (1,1);
 
             \NewtonPolygonAxesAndPoints
@@ -257,45 +258,51 @@
     \begin{figure}[ht]
         \centering
         \begin{tikzpicture}[
-            x={(2.25cm,0cm)},
-            y={(0.7cm,1.2cm)},
+            x={(-0.9cm,-0.55cm)},
+            y={(1.5cm,0cm)},
             z={(0cm,0.13cm)},
             every node/.style={font=\small}]
             % Finite windows into the three unbounded vertical side faces.
             \fill[tropicalCurve!12,opacity=0.75]
-                (0,0,0) -- (1,0,-10) -- (1,0,6) -- (0,0,6) -- cycle;
+                (0,0,-12) -- (1,0,-22) -- (1,0,6) -- (0,0,6) -- cycle;
             \fill[tropicalCurve!8,opacity=0.7]
-                (0,0,0) -- (0,1,-10) -- (0,1,6) -- (0,0,6) -- cycle;
+                (0,0,-12) -- (0,1,-22) -- (0,1,6) -- (0,0,6) -- cycle;
             \fill[tropicalCurve!16,opacity=0.55]
-                (1,0,-10) -- (0,1,-10) -- (0,1,6) -- (1,0,6) -- cycle;
+                (1,0,-22) -- (0,1,-22) -- (0,1,6) -- (1,0,6) -- cycle;
+            
 
             % The bottom face of the lifted upper hull.
             \filldraw[fill=tropicalLift!28,draw=tropicalLift!85!black,
                 very thick,line join=round]
-                (0,0,0) -- (1,0,-10) -- (0,1,-10) -- cycle;
+                (0,0,-12) -- (1,0,-22) -- (0,1,-22) -- cycle;
 
             % Vertical recession directions.
-            \draw[tropicalCurve,thick,-stealth] (0,0,0) -- (0,0,7.5);
-            \draw[tropicalCurve,thick,-stealth] (1,0,-10) -- (1,0,7.5);
-            \draw[tropicalCurve,thick,-stealth] (0,1,-10) -- (0,1,7.5);
+            \draw[tropicalCurve,thick,-stealth] (0,0,-12) -- (0,0,7.5);
+            \draw[tropicalCurve,thick,-stealth] (1,0,-22) -- (1,0,7.5);
+            \draw[tropicalCurve,thick,-stealth] (0,1,-22) -- (0,1,7.5);
             \draw[tropicalCurve,dashed]
                 (0,0,6) -- (1,0,6) -- (0,1,6) -- cycle;
 
             % Coordinate axes and lifted points.
-            \draw[-stealth] (0,0,-12) -- (1.42,0,-12) node[right] {$i$};
-            \draw[-stealth] (0,0,-12) -- (0,1.42,-12) node[above right] {$j$};
+            \draw[-stealth] (0,0,-12) -- (1.42,0,-12)
+                node[below left] {$i$};
+            \draw[-stealth] (0,0,-12) -- (0,1.42,-12)
+                node[right] {$j$};
             \draw[-stealth] (0,0,-12) -- (0,0,9) node[above] {$a_{ij}$};
-            \foreach \point in {(0,0,0),(1,0,-10),(0,1,-10)}
+            \foreach \point in {(0,0,-12),(1,0,-22),(0,1,-22)}
                 \fill[tropicalLift!85!black] \point circle[radius=1.7pt];
-            \node[anchor=east,xshift=-2pt,yshift=3pt]
-                at (0,0,0) {$(0,0,0)$};
-            \node[anchor=west,xshift=4pt,yshift=8pt]
-                at (1,0,-10) {$(1,0,-10)$};
-            \node[anchor=east,xshift=-4pt,yshift=-10pt]
-                at (0,1,-10) {$(0,1,-10)$};
-            \node at (0.55,-0.35,-15) {(a) Lifted upper hull};
+            \node[anchor=south west,xshift=3pt,yshift=2pt]
+                at (0,0,-12) {$(0,0,0)$};
+            \node[anchor=east,xshift=-4pt,yshift=-2pt]
+                at (1,0,-22) {$(1,0,-10)$};
+            \node[anchor=west,xshift=4pt,yshift=-2pt]
+                at (0,1,-22) {$(0,1,-10)$};
+            \node at (0,0.35,-32) {(a) $\tilde{\Delta}_f$};
+
+            \fill[tropicalCurve!8,opacity=0.4]
+                (1,0,-22) -- (0,1,-22) -- (0,1,6) -- (1,0,6) -- cycle;
         \end{tikzpicture}%
-        \hfill
+        \hspace{0.8cm}
         \begin{tikzpicture}[scale=2.25,
             every node/.style={font=\small}]
             \filldraw[fill=tropicalLift!20,draw=tropicalLift!85!black,
@@ -334,17 +341,17 @@
                 (10,10) -- (22.5,10);
             \fill[black] (10,10) circle[radius=1.8pt];
 
-            % A translated and enlarged copy of the Newton subdivision,
-            % centered at the tropical vertex.
+            % A translated, enlarged, and half-turned copy of the Newton
+            % subdivision, centered at the tropical vertex.
             \fill[tropicalLift!12,opacity=0.8]
-                (8.3,8.3) -- (13.4,8.3) -- (8.3,13.4) -- cycle;
+                (12.5,12.5) -- (5,12.5) -- (12.5,5) -- cycle;
             \draw[dualityHorizontal,very thick]
-                (8.3,8.3) -- (13.4,8.3);
+                (5,12.5) -- (12.5,12.5);
             \draw[dualityVertical,very thick]
-                (8.3,8.3) -- (8.3,13.4);
+                (12.5,12.5) -- (12.5,5);
             \draw[dualityDiagonal,very thick]
-                (13.4,8.3) -- (8.3,13.4);
-            \foreach \point in {(8.3,8.3),(13.4,8.3),(8.3,13.4)}
+                (12.5,5) -- (5,12.5);
+            \foreach \point in {(12.5,12.5),(5,12.5),(12.5,5)}
                 \fill[black] \point circle[radius=1.5pt];
             \fill[black] (10,10) circle[radius=1.8pt];
 
