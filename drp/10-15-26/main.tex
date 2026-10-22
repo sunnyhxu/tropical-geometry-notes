@@ -14,17 +14,17 @@ As an ordinary function $f:\rr^n \to \rr$,
 \[f(\xx)=\min_{\ii \in S}(a_\ii+\langle \ii,\xx\rangle ).\]
 
 \begin{defin}
-    The tropical hypersurface $V(f)$ is the set of points at which the minimum defining $f$ is attained by at least two distinct monomials. Specifically,
-    \[V(f)=\{\xx \in \rr^n:|\argmin_{\ii \in S}(c_\ii+\langle \ii,\xx\rangle )\ge 2\}.\]
+    The tropical hypersurface $V_f$ is the set of points at which the minimum defining $f$ is attained by at least two distinct monomials. Specifically,
+    \[V_f=\{\xx \in \rr^n:|\argmin_{\ii \in S}(c_\ii+\langle \ii,\xx\rangle )\ge 2\}.\]
 
-    Equivalently, $V(f)$ is the locus where $f$ is not locally linear. 
+    Equivalently, $V_f$ is the locus where $f$ is not locally linear. 
 
-    For $n=2$, $V(f)$ is a tropical curve. In general, a tropical hypersurface is a polyhedral complex of dimension $n-1$.
+    For $n=2$, $V_f$ is a tropical curve. In general, a tropical hypersurface is a polyhedral complex of dimension $n-1$.
 \end{defin}
 
-\begin{example}
+% \begin{example}
     % a two-dimensional example
-\end{example}
+% \end{example}
 
 Suppose two polynomials
 \[f_1(\xx)=\langle \ii_1,\xx\rangle+a_1,\qquad f_2(\xx)=\langle \ii_2,\xx\rangle +a_2\]
@@ -36,16 +36,9 @@ The geometry of the tropical hypersurface is controlled by differences between t
 
 We can make this correspondence precise using Newton polytopes.
 
-\subsection{Newton Polytopes and Regular Subdivisions}
+\subsection{Regular Subdivisions of Newton Polytopes}
 
-\begin{defin}
-    The \textit{Newton polytope} of $f$ is
-    \[\Delta_f=\conv (S)\subseteq \rr^n.\]
-
-    It is the convex hull of the exponent vectors of the monomials in $f$.
-\end{defin}
-
-Note that $\Delta_f$ only depends on the exponents, while $V(f)$ depends on both the exponents and the coefficients. To incorporate the coefficients, we lift each exponent vector into one higher dimension.
+Note that $\Delta_f$ only depends on the exponents, while $V_f$ depends on both the exponents and the coefficients. To incorporate the coefficients, we lift each exponent vector into one higher dimension.
 
 \begin{defin}
     Define the lifted point configuration
@@ -69,7 +62,7 @@ Note that $\Delta_f$ only depends on the exponents, while $V(f)$ depends on both
 
 \subsection{Duality}
 
-The tropical polynomial $f$ partitions $\rr^n$ into polyhedral regions according to which monomials attain the minimum. Let $Q_f$ denote the corresponding polyhedral complex, including its faces. Its codimension-one skeleton is the tropical hypersurface $V(f)$.
+The tropical polynomial $f$ partitions $\rr^n$ into polyhedral regions according to which monomials attain the minimum. Let $Q_f$ denote the corresponding polyhedral complex, including its faces. Its codimension-one skeleton is the tropical hypersurface $V_f$.
 
 \begin{thm}
     Let $f$ be a tropical polynomial in $n$ variables, and assume its Newton polytope $\Delta_f$ has dimension $n$. 
@@ -124,7 +117,7 @@ We will work out the correspondence fully in $n=2$ case, and the same approach g
     and
     \[a \le m_1i_1+m_2i_2+\varphi(i_1,i_2).\]
     Since $(i_1,i_2) \in S$ and $\varphi(i_1,i_2)$ is the coefficient for a monomial,
-    \[m_1i_1+m_2i_2+\varphi(i_1,i_2)=a_{(i_1,i_2)}\otimes x_1^{i_1}\otimes x_2^{i_2}=a_\ii \xx^\ii\]
+    \[m_1i_1+m_2i_2+\varphi(i_1,i_2)=a_{(i_1,i_2)}\odot x_1^{i_1}\odot x_2^{i_2}=a_\ii \xx^\ii\]
     in tropical arithmetic.
 
     Hence, $\check\tau$ is the domain of linearity where $a_\tau\xx^\tau$ attains minimum. 

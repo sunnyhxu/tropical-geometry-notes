@@ -4,19 +4,20 @@
 
 \begin{document}
 
-\section{Tropical Arithmetic}
+\section{Tropical Arithmetic and Polynomials}
 
-\subsection{Definitions and results}
+\subsection{Tropical Semiring}
 
-\begin{defin}[Tropical semiring]
+\begin{defin}
     The \textit{min-plus tropical semiring} is
     \[\{\rr \cup \{\infty\},\oplus,\odot\},\]
     with tropical addition $a \oplus b = \min\{a,b\}$ and 
     tropical multiplication $a \odot b = a+b$.
 \end{defin}
 
-\begin{rmk}
-    By the definition of a semiring, the following holds: 
+By the definition of a semiring, the following holds: 
+\begin{prop}
+    For any $x,y,z \in \rr\cup \{\infty\}$,
     \begin{itemize}
         \item (Commutativity)
         \[x\oplus y=y\oplus x \quad \text{and}\quad x\odot y=y\odot x.\]
@@ -27,26 +28,127 @@
     \end{itemize}
 
     Note that the existence of an additive inverse is not guaranteed. For example, $6\oplus x=7$ has no solution for $x$.
-\end{rmk}
+\end{prop}
+
+\subsection{Tropical Polynomials}
 
 \begin{defin}
     A \textit{tropical polynomial} is a finite linear combination of tropical monomials 
-    \[p(x_1,\dots,x_n)=a\odot x_1^{i_1}x_2^{i_2}\cdots x_n^{i_n}\oplus b\odot x_1^{j_1}x_2^{j_2}\cdots x_n\oplus \cdots\]
-    where the coefficients $a,b,\dots \in \rr$ and the exponents $i_1,j_1,\dots \in \zz$. 
+    \[f(x_1,\dots,x_n)=a\odot x_1^{i_1}x_2^{i_2}\cdots x_n^{i_n}\oplus b\odot x_1^{j_1}x_2^{j_2}\cdots x_n\oplus \cdots\]
+    where the coefficients $a,b,\dots \in \rr$ and the exponents $i_1,j_1,\dots \in \zz_{\ge 0}$. 
 
-    A tropical polynomial $p$ can be regarded as a function $p:\rr^n \to \rr$ by
-    \[p(x_1,\dots,x_n)=\min(a+i_1x_1+\dots+i_nx_n,b+j_1x_1+\dots+j_nx_n,\dots)\]
+    A tropical polynomial $f$ can be regarded as a function $f:\rr^n \to \rr$ by
+    \[f(x_1,\dots,x_n)=\min(a+i_1x_1+\dots+i_nx_n,b+j_1x_1+\dots+j_nx_n,\dots)\]
+
+    To use vectors $\xx=(x_1,\dots,x_n) \in \rr^n$ and $\ii=(i_1,\dots,i_n)\in \zz_{\ge 0}^n$,
+    \[f(\xx)=\bigoplus_{\ii \in S}a_\ii \odot \xx^\ii,\]
+    where $A\subseteq \zz_{\ge 0}^n$ is finite and 
+    \[\xx^\ii=x_1^{i_1}\odot x_2^{i_2}\odot \cdots \odot x_n^{i_n}.\]
+
+    In the regular arithmetic,
+    \[f(\xx)=\min_{\ii \in S}\{a_\ii+\langle \ii,\xx\rangle\}.\]
 \end{defin}
 
-\begin{thm}
+\begin{lem}
+    Every tropical polynomial function $f:\rr^n \to \rr$ is
+    \begin{itemize}
+        \item continuous;
+        \item piecewise-linear, with finitely many domains of linearity;
+        \item concave.
+    \end{itemize}
+\end{lem}
+
+\begin{proof}
+    Continuity follows because a finite minimum of continuous functions is continuous.
+
+    Since each monomial represents a linear function, taking the minimum of them gives a piecewise-linear function with no more domains of linearity than monomials.
+
+    Write $f(\xx)=\min_{\ii \in A}\{a_\ii + \langle \ii,\xx\rangle\}$. For any $\xx,\yy \in \rr^n$ and $t \in [0,1]$,
+    \begin{align*}
+        f(t\xx+(1-t)\yy)
+        &=\min_{\ii \in S}(a_\ii+t\langle \ii,\xx\rangle+(1-t)\langle \ii,\yy\rangle)\\
+        &=\min_{\ii \in S}(t(a_\ii+\langle \ii,\xx) +(1-t)(a_\ii+\langle \ii,\yy\rangle)\\
+        &\ge tf(\xx)+(1-t)f(\yy).
+    \end{align*}
+
+    Hence, $f$ is concave.
+\end{proof}
+
+\begin{lem} \label{lem:polynomial-pl graphs}
     The tropical polynomials in $n$ variables $x_1,\dots,x_n$ are precisely the piecewise-linear concave functions on $\rr^n$ with integer coefficients.
+\end{lem}
+
+\subsection{Fundamental Theorem of Tropical Algebra}
+
+Every tropical polynomial function can be written uniquely as a tropical product of tropical linear functions. For example, 
+\[x^2\oplus 17\odot x\oplus 2 \quad = \quad x^2\oplus 1\odot x\oplus 2 \quad =\quad (x\oplus 1)^2.\]
+
+A factorization of a tropical polynomial gives the following properties.
+
+\begin{prop}
+    Let $f:\rr \to \rr$ be a tropical polynomial with one variable with the factorization
+    \[f(x)=(x\oplus r_1)^{a_1}\odot (x\oplus r_1)^{a_2}\odot\cdots \odot (x\oplus r_n)^{a_n}\]
+    where $r_1<r_2<\dots<r_n$.
+
+    Then,
+    \[f(x)=\begin{cases}
+        \left(\sum_{j=1}^n a_j\right)x, & x\le r_1,\\
+        \left(\sum_{j=i+1}^n a_j\right)x+\sum_{j=1}^i (a_jr_j), & r_i<x\le r_{i+1},\\
+        \sum_{j=1}^n (a_jr_j), & x>r_n.
+    \end{cases}\]
+
+    Hence, the gradient at $x\neq r_i$ is
+    \[n-\#\{i:r_i\le x\}.\]
+\end{prop}
+
+\begin{thm}[Fundamental Theorem of Tropical Algebra]
+    Let $f:\rr \to \rr$ be given by 
+    \[f(x)=\bigoplus_{i=0}^n a_ix^i=\min_{i=0}^n\{a_i+ix\}.\]
+    Then, there exist $r_1,\dots,r_n$ such that
+    \[p(x)=a_n\odot(x\oplus r_1)\odot \cdots \odot (x\oplus r_n)\]
+    satisfying $f=p$ as functions $\rr\to \rr$.
 \end{thm}
 
+\begin{proof}[Proof sketch]
+    We establish two bijections:
+    \begin{enumerate}[label=(\roman*)]
+        \item a bijection between such $p$'s and graphs ending with zero gradient when $x \to \infty$, gradient of $n$ when $x \to -\infty$, and non-increasing integer gradients;
 
+        \item a bijection between such graphs and $f$'s.
+    \end{enumerate}
+\end{proof}
 
-\subsection{Examples}
+\subsection{Newton Polytopes}
 
+\begin{defin}
+    For any tropical polynomial
+    \[f(\xx)=\bigoplus_{\ii \in S}a_\ii \odot \xx^\ii,\]
+    the \textit{Newton polytope} of $f$ is
+    \[\Delta_f=\conv (S)\subseteq \rr^n.\]
+    
+    It is the convex hull of the exponent vectors of the monomials in $f$.
+\end{defin}
 
-\subsection{Exercises}
+\begin{prop}
+    For any two tropical polynomials $f$ and $g$,
+    \[\Delta_{f\odot g}=\Delta_f+\Delta_g\]
+    where $+$ denotes the Minkowski sum.
+\end{prop}
+
+\begin{example}
+    Consider $f(x,y)=(x\oplus 0)(y\oplus 0)(xy\oplus 0)$.
+
+    \begin{align*}
+        f(x,y) &= x^2y^2 \oplus x^2y \oplus xy^2\oplus x\oplus y\oplus 0\\
+        &= (xy\oplus x\oplus 0)(xy\oplus y\oplus 0).
+    \end{align*}
+
+    Its Newton polygon is as follows, which equals
+    \[\conv((1,1),(1,0),(0,0))+\conv((1,1),(0,1),(0,0))\]
+    or
+    \[\conv((1,0),(0,0))+\conv((0,1),(0,0))+\conv((1,1),(0,0)).\]
+    
+    Also note that unique factorization breaks in this case, where $f(x,y)$ has two distinct irreducible factorization.
+\end{example}
 
 \end{document}
