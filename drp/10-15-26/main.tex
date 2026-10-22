@@ -22,9 +22,17 @@ As an ordinary function $f:\rr^n \to \rr$,
     For $n=2$, $V_f$ is a tropical curve. In general, a tropical hypersurface is a polyhedral complex of dimension $n-1$.
 \end{defin}
 
-% \begin{example}
-    % a two-dimensional example
-% \end{example}
+\begin{example} \label{example:tropical-line-at-ten}
+    Consider the tropical polynomial
+    \[f(x,y)=0\oplus(-10)\odot x\oplus(-10)\odot y=\min\{0,x-10,y-10\}.\]
+    Its tropical curve consists of the three rays
+    \[\{x=10,\ y\ge 10\},\qquad
+    \{y=10,\ x\ge 10\},\qquad
+    \{y=x,\ x\le 10\},\]
+    which meet at $(10,10)$.
+
+    \TropicalLineFigure
+\end{example}
 
 Suppose two polynomials
 \[f_1(\xx)=\langle \ii_1,\xx\rangle+a_1,\qquad f_2(\xx)=\langle \ii_2,\xx\rangle +a_2\]
@@ -44,8 +52,8 @@ Note that $\Delta_f$ only depends on the exponents, while $V_f$ depends on both 
     Define the lifted point configuration
     \[\tilde S=\{(\ii,a_\ii):\ii \in S\}\subseteq \rr^{n+1}.\]
 
-    Denote its upper convex hull as
-    \[\tilde{\Delta}_f=\conv (\tilde S).\]
+    Denote its upper convex hull as the upward-unbounded polyhedron
+    \[\tilde{\Delta}_f=\conv(\tilde S)+\rr_{\ge 0}e_{n+1}=\conv\{(\ii,t):\ii\in S,\ t\ge a_\ii\}.\]
 \end{defin}
 
 \begin{defin}
@@ -53,6 +61,15 @@ Note that $\Delta_f$ only depends on the exponents, while $V_f$ depends on both 
 
     These projected faces from a polyhedral subdivision of $\Delta_f$. 
 \end{defin}
+
+\begin{example} \label{example:tropical-line-subdivision}
+    For the polynomial in Example~\ref{example:tropical-line-at-ten}, the lifted points are
+    \[(0,0,0),\qquad (1,0,-10),\qquad (0,1,-10).\]
+    Extending their convex hull indefinitely in the positive height direction gives the upper hull pictured below. Its bottom face projects to the full triangle
+    \[P_f=\conv\{(0,0),(1,0),(0,1)\}.\]
+
+    \TropicalLiftAndSubdivisionFigure
+\end{example}
 
 \begin{rmk}
     We use the bottom faces because tropical addition is defined using minimum, and vertices on the bottom faces correspond to monomials that can attain their minimum for some $\xx$. Any interior point of $\tilde{\Delta}(f)$, on the other hand, will never attain its minimum, hence removing them will not change the polynomial output.
@@ -85,6 +102,12 @@ The tropical polynomial $f$ partitions $\rr^n$ into polyhedral regions according
 
     In particular, an edge of a tropical curve is perpendicular to its dual edge in the Newton subdivision.
 \end{thm}
+
+\begin{example}
+    Continuing Examples~\ref{example:tropical-line-at-ten} and~\ref{example:tropical-line-subdivision}, the two-dimensional cell of $P_f$ is dual to the vertex $(10,10)$ of $V_f$. Each edge of $P_f$ is perpendicular to its corresponding ray of the tropical curve, as indicated by the matching colors below.
+
+    \TropicalDualityFigure
+\end{example}
 
 We will work out the correspondence fully in $n=2$ case, and the same approach generalizes to higher dimensions.
 

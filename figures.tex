@@ -4,6 +4,12 @@
 \definecolor{auctionSunny}{RGB}{45,76,105}
 \definecolor{auctionRainy}{RGB}{156,78,53}
 \definecolor{auctionEquilibrium}{RGB}{224,183,74}
+\definecolor{newtonFactor}{RGB}{190,45,45}
+\definecolor{tropicalCurve}{RGB}{40,92,130}
+\definecolor{tropicalLift}{RGB}{211,126,49}
+\definecolor{dualityHorizontal}{RGB}{194,63,63}
+\definecolor{dualityVertical}{RGB}{46,133,96}
+\definecolor{dualityDiagonal}{RGB}{119,76,153}
 
 % Common axes for the two-good price diagrams.
 \newcommand{\AuctionPriceAxes}{%
@@ -137,5 +143,218 @@
         the solid line is her updated locus of indifference prices. The
         shaded triangle is the set of competitive-equilibrium prices.}
         \label{fig:updated-combined-demand}
+    \end{figure}%
+}
+
+% The Newton polygon of
+% (x \oplus 0)(y \oplus 0)(xy \oplus 0), together with its two
+% Minkowski-sum decompositions from the final example in the DRP notes.
+\newcommand{\NewtonPolygonShape}{%
+    \filldraw[fill=black!6,draw=black,thick,line join=round]
+        (0,0) -- (1,0) -- (2,1) -- (2,2) -- (1,2) -- (0,1) -- cycle;
+}
+
+\newcommand{\NewtonPolygonAxesAndPoints}{%
+    \draw[-stealth] (-0.22,0) -- (2.48,0) node[right] {$i$};
+    \draw[-stealth] (0,-0.22) -- (0,2.48) node[above] {$j$};
+    \foreach \x in {1,2}
+        \draw (\x,0.045) -- (\x,-0.045) node[below=2pt] {\scriptsize \x};
+    \foreach \y in {1,2}
+        \draw (0.045,\y) -- (-0.045,\y) node[left=2pt] {\scriptsize \y};
+    \node[below left=1pt] at (0,0) {\scriptsize $0$};
+    \foreach \point in {(0,0),(1,0),(2,1),(2,2),(1,2),(0,1)}
+        \fill \point circle[radius=1.35pt];
+}
+
+\newcommand{\NewtonPolygonFigure}{%
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[scale=1.15,
+            every node/.style={font=\small}]
+            \NewtonPolygonShape
+            \NewtonPolygonAxesAndPoints
+            \node at (1,-0.62) {(a) $\Delta_f$};
+        \end{tikzpicture}%
+        \hfill
+        \begin{tikzpicture}[scale=1.15,
+            every node/.style={font=\small}]
+            \NewtonPolygonShape
+
+            % The two triangular Newton polygons in the first decomposition.
+            \fill[newtonFactor!16]
+                (0,0) -- (1,0) -- (1,1) -- cycle;
+            \fill[newtonFactor!16]
+                (0,0) -- (0,1) -- (1,1) -- cycle;
+            \draw[newtonFactor,very thick,line join=round]
+                (0,0) -- (1,0) -- (1,1) -- cycle;
+            \draw[newtonFactor,very thick,line join=round]
+                (0,0) -- (0,1) -- (1,1) -- cycle;
+
+            \NewtonPolygonAxesAndPoints
+            \node at (1,-0.62) {(b) Two triangles};
+        \end{tikzpicture}%
+        \hfill
+        \begin{tikzpicture}[scale=1.15,
+            every node/.style={font=\small}]
+            \NewtonPolygonShape
+
+            % The three segment Newton polygons in the second decomposition.
+            \draw[newtonFactor,very thick,line cap=round]
+                (0,0) -- (1,0);
+            \draw[newtonFactor,very thick,line cap=round]
+                (0,0) -- (0,1);
+            \draw[newtonFactor,very thick,line cap=round]
+                (0,0) -- (1,1);
+
+            \NewtonPolygonAxesAndPoints
+            \node at (1,-0.62) {(c) Three segments};
+        \end{tikzpicture}
+        \caption{The Newton polygon of
+        $f(x,y)=(x\oplus 0)(y\oplus 0)(xy\oplus 0)$ and the Newton
+        polygons of the factors in its two distinct factorizations.}
+        \label{fig:newton-polygon-factorizations}
+    \end{figure}%
+}
+
+% The tropical line defined by min{0,x-10,y-10}.
+\newcommand{\TropicalLineAxes}{%
+    \draw[-stealth] (-3,0) -- (23,0) node[right] {$x$};
+    \draw[-stealth] (0,-3) -- (0,23) node[above] {$y$};
+    \foreach \t in {10,20} {
+        \draw (\t,0.35) -- (\t,-0.35) node[below] {\scriptsize \t};
+        \draw (0.35,\t) -- (-0.35,\t) node[left] {\scriptsize \t};
+    }
+    \node[below left] at (0,0) {\scriptsize $0$};
+}
+
+\newcommand{\TropicalLineFigure}{%
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[x=0.2cm,y=0.2cm,
+            every node/.style={font=\small}]
+            \TropicalLineAxes
+
+            \draw[tropicalCurve,very thick,-stealth]
+                (10,10) -- (-2.5,-2.5);
+            \draw[tropicalCurve,very thick,-stealth]
+                (10,10) -- (10,22.5);
+            \draw[tropicalCurve,very thick,-stealth]
+                (10,10) -- (22.5,10);
+            \fill[tropicalCurve] (10,10) circle[radius=2pt];
+
+            \node[tropicalCurve,anchor=south east] at (5.5,5.5) {$y=x$};
+            \node[tropicalCurve,anchor=south west] at (10.5,18) {$x=10$};
+            \node[tropicalCurve,anchor=south] at (17,10.5) {$y=10$};
+        \end{tikzpicture}
+        \caption{The tropical curve of
+        $f(x,y)=0\oplus(-10)\odot x\oplus(-10)\odot y
+        =\min\{0,x-10,y-10\}$.}
+        \label{fig:tropical-line-at-ten}
+    \end{figure}%
+}
+
+\newcommand{\TropicalLiftAndSubdivisionFigure}{%
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[
+            x={(2.25cm,0cm)},
+            y={(0.7cm,1.2cm)},
+            z={(0cm,0.13cm)},
+            every node/.style={font=\small}]
+            % Finite windows into the three unbounded vertical side faces.
+            \fill[tropicalCurve!12,opacity=0.75]
+                (0,0,0) -- (1,0,-10) -- (1,0,6) -- (0,0,6) -- cycle;
+            \fill[tropicalCurve!8,opacity=0.7]
+                (0,0,0) -- (0,1,-10) -- (0,1,6) -- (0,0,6) -- cycle;
+            \fill[tropicalCurve!16,opacity=0.55]
+                (1,0,-10) -- (0,1,-10) -- (0,1,6) -- (1,0,6) -- cycle;
+
+            % The bottom face of the lifted upper hull.
+            \filldraw[fill=tropicalLift!28,draw=tropicalLift!85!black,
+                very thick,line join=round]
+                (0,0,0) -- (1,0,-10) -- (0,1,-10) -- cycle;
+
+            % Vertical recession directions.
+            \draw[tropicalCurve,thick,-stealth] (0,0,0) -- (0,0,7.5);
+            \draw[tropicalCurve,thick,-stealth] (1,0,-10) -- (1,0,7.5);
+            \draw[tropicalCurve,thick,-stealth] (0,1,-10) -- (0,1,7.5);
+            \draw[tropicalCurve,dashed]
+                (0,0,6) -- (1,0,6) -- (0,1,6) -- cycle;
+
+            % Coordinate axes and lifted points.
+            \draw[-stealth] (0,0,-12) -- (1.42,0,-12) node[right] {$i$};
+            \draw[-stealth] (0,0,-12) -- (0,1.42,-12) node[above right] {$j$};
+            \draw[-stealth] (0,0,-12) -- (0,0,9) node[above] {$a_{ij}$};
+            \foreach \point in {(0,0,0),(1,0,-10),(0,1,-10)}
+                \fill[tropicalLift!85!black] \point circle[radius=1.7pt];
+            \node[anchor=east,xshift=-2pt,yshift=3pt]
+                at (0,0,0) {$(0,0,0)$};
+            \node[anchor=west,xshift=4pt,yshift=8pt]
+                at (1,0,-10) {$(1,0,-10)$};
+            \node[anchor=east,xshift=-4pt,yshift=-10pt]
+                at (0,1,-10) {$(0,1,-10)$};
+            \node at (0.55,-0.35,-15) {(a) Lifted upper hull};
+        \end{tikzpicture}%
+        \hfill
+        \begin{tikzpicture}[scale=2.25,
+            every node/.style={font=\small}]
+            \filldraw[fill=tropicalLift!20,draw=tropicalLift!85!black,
+                very thick,line join=round]
+                (0,0) -- (1,0) -- (0,1) -- cycle;
+            \draw[-stealth] (-0.12,0) -- (1.35,0) node[right] {$i$};
+            \draw[-stealth] (0,-0.12) -- (0,1.35) node[above] {$j$};
+            \foreach \point in {(0,0),(1,0),(0,1)}
+                \fill[tropicalLift!85!black] \point circle[radius=0.75pt];
+            \node[below left=1pt] at (0,0) {\scriptsize $(0,0)$};
+            \node[below=2pt] at (1,0) {\scriptsize $(1,0)$};
+            \node[left=2pt] at (0,1) {\scriptsize $(0,1)$};
+            \node at (0.55,-0.38) {(b) $P_f$};
+        \end{tikzpicture}
+        \caption{The lifted configuration for $f$ and its regular
+        subdivision. The arrows in the left panel indicate that the upper
+        hull continues indefinitely in the positive height direction; its
+        orange bottom face projects to the triangle on the right.}
+        \label{fig:tropical-line-lift-subdivision}
+    \end{figure}%
+}
+
+\newcommand{\TropicalDualityFigure}{%
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[x=0.22cm,y=0.22cm,
+            every node/.style={font=\small}]
+            \TropicalLineAxes
+
+            % Tropical edges, colored to match their perpendicular duals.
+            \draw[dualityDiagonal,very thick,-stealth]
+                (10,10) -- (-2.5,-2.5);
+            \draw[dualityHorizontal,very thick,-stealth]
+                (10,10) -- (10,22.5);
+            \draw[dualityVertical,very thick,-stealth]
+                (10,10) -- (22.5,10);
+            \fill[black] (10,10) circle[radius=1.8pt];
+
+            % A translated and enlarged copy of the Newton subdivision,
+            % centered at the tropical vertex.
+            \fill[tropicalLift!12,opacity=0.8]
+                (8.3,8.3) -- (13.4,8.3) -- (8.3,13.4) -- cycle;
+            \draw[dualityHorizontal,very thick]
+                (8.3,8.3) -- (13.4,8.3);
+            \draw[dualityVertical,very thick]
+                (8.3,8.3) -- (8.3,13.4);
+            \draw[dualityDiagonal,very thick]
+                (13.4,8.3) -- (8.3,13.4);
+            \foreach \point in {(8.3,8.3),(13.4,8.3),(8.3,13.4)}
+                \fill[black] \point circle[radius=1.5pt];
+            \fill[black] (10,10) circle[radius=1.8pt];
+
+            \node[anchor=west] at (14.4,16.4)
+                {matching colors $=$ dual edges};
+        \end{tikzpicture}
+        \caption{The tropical curve and a translated, enlarged copy of
+        $P_f$ superimposed. Each edge of the Newton subdivision is
+        perpendicular to the tropical edge of the same color, while the
+        triangular cell is dual to the vertex $(10,10)$.}
+        \label{fig:tropical-line-duality}
     \end{figure}%
 }
